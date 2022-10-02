@@ -7,24 +7,24 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: 'Build & Deploy React app to GitHub Pages'
-        using: 'composite'
-        run: |
-          npm i --force
-          bash
-          npm ci --force
-          bash
-          npm run build
-          bash
-          git config user.name github-actions
-          bash
-          git config user.email github-actions@github.com
-          bash
-          git --work-tree build add --all
-          bash
-          git commit -m "Automatic Build and Deploy run by GitHub Actions"
-          bash
-          git push origin HEAD:gh-pages --force
-          bash
+    runs:
+      using: 'composite'
+      steps:
+        - uses: actions/checkout@v3
+        - name: 'Build & Deploy React app to GitHub Pages'
+        - run : npm i
+          shell: bash
+        - run : npm ci
+          shell: bash
+        - run : npm run build
+          shell: bash
+        - run : git config user.name github-actions
+          shell: bash
+        - run : git config user.email github-actions@github.com
+          shell: bash
+        - run : git --work-tree build add --all
+          shell: bash
+        - run : git commit -m "Automatic Build and Deploy run by GitHub Actions"
+          shell: bash
+        - run : git push origin HEAD:gh-pages --force
+          shell: bash
