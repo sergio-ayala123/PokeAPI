@@ -13,7 +13,7 @@ jobs:
 
       - name: 'Build & Deploy React app to GitHub Pages'
         description: 'GitHub Action to deploy React app in gh-pages branch.'
-        runs: |
+        run: |
           npm i --force
           bash
           npm ci --force
