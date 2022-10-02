@@ -1,25 +1,21 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import NavBar from './components/NavBar';
+import axios from 'axios'
+import {useQuery} from 'react-query'
+import Form from './components/Form';
+import {useEffect, useState } from 'react';
+import {GoogleLogin, GoogleLogout} from 'react-google-login'
+import {gapi} from 'gapi-script'
 
 function App() {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+    <NavBar/>
+    <Form />
+   
+    
+    </>
   );
 }
 
