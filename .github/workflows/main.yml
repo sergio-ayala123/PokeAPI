@@ -15,3 +15,4 @@ jobs:
         run: |
           npm ci --force
           npm run build
+        uses: MrKrishnaAgarwal/deploy-react-app-to-gh-pages@v1.0.0
