@@ -12,7 +12,6 @@ jobs:
         uses: actions/checkout@v3
 
       - name: 'Build & Deploy React app to GitHub Pages'
-        description: 'GitHub Action to deploy React app in gh-pages branch.'
         run: |
           npm i --force
           bash
