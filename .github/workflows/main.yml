@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 'Build & Deploy React app to GitHub Pages'
-      - uses: actions/checkout@v3
+        uses: actions/checkout@v3
         run : |
           npm i --force
           bash
