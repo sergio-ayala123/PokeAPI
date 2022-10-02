@@ -1,11 +1,11 @@
 name: Build and Deploy
 on:
   push:
-      branches: [ "main" ]
-    pull_request:
-      branches: [ "main" ]
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🛎️
@@ -15,6 +15,3 @@ jobs:
         run: |
           npm ci --force
           npm run build
-
-    - name: Build & Deploy React app to GitHub Pages
-      uses: MrKrishnaAgarwal/deploy-react-app-to-gh-pages@v1.0.0
