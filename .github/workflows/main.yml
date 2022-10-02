@@ -8,9 +8,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout 🛎️
         uses: actions/checkout@v3
-
       - name: 'Build & Deploy React app to GitHub Pages'
         run: |
           npm i --force
