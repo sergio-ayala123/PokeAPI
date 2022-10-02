@@ -1,6 +1,6 @@
 import { useQuery } from 'react-query'
 import axios from 'axios'
-import React, { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react'
+import React, {FormEvent, useRef, useState } from 'react'
 import { Alert, AlertTitle, CircularProgress } from '@mui/material'
 import { Box } from '@mui/system'
 
@@ -84,28 +84,28 @@ const Form = () => {
             {hideForm ?
                 <div>
                     <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                        <img height='200px' src={data?.data.sprites.front_default} />
+                        <img height='200px' src={data?.data.sprites.front_default} alt = "sprite" />
                     </Box>
                     <Box sx={{ display: 'flex', justifyContent: 'center' }}>
 
-                        {types.length == 1 ? <h1>Type: {types[0].type.name}</h1> : <h1> Type: {types[0].type.name}/{types[1].type.name} </h1>}
+                        {types.length === 1 ? <h1>Type: {types[0].type.name}</h1> : <h1> Type: {types[0].type.name}/{types[1].type.name} </h1>}
                     </Box>
 
                     {cards!.data!.data.map((j: any) => <Box sx={{ padding: '4em' }}>
 
                         <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                            <img src={j.images.small}></img>
+                            <img src={j.images.small} alt = "small-image"></img>
                         </Box>
 
                         <div style={{ display: 'inline', justifyContent: 'center', textAlign: 'center' }}>
                             <h3>Average Sell Price: ${j.cardmarket?.prices?.averageSellPrice}</h3>
                             <h3>Set Name: {j.set.name}</h3>
                             <Box>
-                                <img src={j.set.images.logo} style={{ height: '10%', width: '10%' }} ></img>
+                                <img src={j.set.images.logo} style={{ height: '10%', width: '10%' }} alt = "logo"></img>
                             </Box>
                             <Box sx={{ display: 'flex', justifyContent: 'center' }}>
 
-                                <a href={j.tcgplayer?.url} className="btn btn-dark" target="_blank" style={{ textAlign: 'center', display: 'flex', justifyContent: 'center', width: '20%' }}>Buy Here</a>
+                                <a href={j.tcgplayer?.url} className="btn btn-dark" target="_blank" rel = "noreferrer" style={{ textAlign: 'center', display: 'flex', justifyContent: 'center', width: '20%' }}>Buy Here</a>
                             </Box>
 
                         </div>
