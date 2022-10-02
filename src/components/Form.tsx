@@ -94,7 +94,7 @@ const Form = () => {
                     {cards!.data!.data.map((j: any) => <Box sx={{ padding: '4em' }}>
 
                         <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                            <img src={j.images.small} alt = "small-image"></img>
+                            <img src={j.images.small} alt = "small"></img>
                         </Box>
 
                         <div style={{ display: 'inline', justifyContent: 'center', textAlign: 'center' }}>
