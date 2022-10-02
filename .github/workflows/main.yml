@@ -15,7 +15,6 @@ jobs:
         description: 'GitHub Action to deploy React app in gh-pages branch.'
         runs:
           using: 'composite'
-          steps: 
               run : npm i --force
               shell: bash
               run : npm ci --force
