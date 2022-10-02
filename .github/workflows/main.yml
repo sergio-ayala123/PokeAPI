@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: 'Build & Deploy React app to GitHub Pages'
-      run : |
+        run : |
           npm i --force
           bash
           npm ci --force
