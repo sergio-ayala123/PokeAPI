@@ -15,4 +15,5 @@ jobs:
         run: |
           npm ci --force
           npm run build
+      - name: Deploy to GitHub Pages
         uses: MrKrishnaAgarwal/deploy-react-app-to-gh-pages@v1.0.0
