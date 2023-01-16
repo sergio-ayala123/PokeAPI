@@ -1,5 +1,4 @@
 import { Box } from "@mui/material";
-import { Interface } from "readline";
 
 interface cardProps {
     image: string,
