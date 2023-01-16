@@ -21,8 +21,8 @@ export const PokeService = {
         return res.data
     },
     
-    GetAllPokemonCards: async(pokemon:string): Promise<any> => {
-        let url = `https://api.pokemontcg.io/v2/cards?q=name:${pokemon ? pokemon : 'bulbasaur'}`
-    }
+    // GetAllPokemonCards: async(pokemon:string): Promise<any> => {
+    //     let url = `https://api.pokemontcg.io/v2/cards?q=name:${pokemon ? pokemon : 'bulbasaur'}`
+    // }
     
 };

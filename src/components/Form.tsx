@@ -6,8 +6,6 @@ import { Box } from '@mui/system'
 import Card from '../components/Card'
 import { motion } from 'framer-motion'
 import { PokeService } from '../services/PokeService'
-import { type } from '@testing-library/user-event/dist/type'
-import { click } from '@testing-library/user-event/dist/click'
 
 const Form = () => {
     type pok = {
@@ -97,7 +95,7 @@ const Form = () => {
     const onChangePokemon = () => {
         setShowPossiblePokemons(true)
         setPossiblePokemon(pokemon.current!.value)
-        if (pokemon.current!.value == '') {
+        if (pokemon.current!.value === '') {
             setShowPossiblePokemons(false)
         }
     }
@@ -106,17 +104,13 @@ const Form = () => {
         setPossibleSet(setName.current!.value)
         console.log(setName.current!.value)
         console.log(setList)
-        if (setName.current!.value == '') {
+        if (setName.current!.value === '') {
             setShowPossibleSets(false)
         }
     }
 
     const getPokemon = (selected: string) => {
         pokemon.current!.value = selected
-    }
-
-    const click = () => {
-
     }
 
     
@@ -198,7 +192,7 @@ const Form = () => {
                 <Grid container rowSpacing = {3} columnSpacing = {{xs:1, sm:2, md:3}} >
                     {setList?.map((j:any) => 
                     
-                        <Grid  item xs = {12} md={4}  onClick = {click}>
+                        <Grid  item xs = {12} md={4} >
                             <div style = {{border:'solid'}}>
 
                             <h3 style={{textAlign:'center'}}>{j.name}</h3>
