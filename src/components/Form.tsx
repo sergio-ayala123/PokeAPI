@@ -1,32 +1,33 @@
 import { useQuery } from 'react-query'
 import axios from 'axios'
 import React, { FormEvent, useEffect, useRef, useState } from 'react'
-import { Alert, AlertTitle, CircularProgress, Grid } from '@mui/material'
+import { Alert, AlertTitle, CircularProgress, Grid} from '@mui/material'
 import Card from '../components/Card'
 import { motion } from 'framer-motion'
 import { PokeService } from '../services/PokeService'
+import { Link, useNavigate } from 'react-router-dom'
 
 const Form = () => {
     type pok = {
-        name:string, 
+        name: string,
         url: string
     }
     type set = {
-        id:string, 
-        name:string,
-        series:string,
-        printedTotal: number, 
-        total: number, 
+        id: string,
+        name: string,
+        series: string,
+        printedTotal: number,
+        total: number,
         legalities: {
-            unlimited:string,
-            standard:string,
-            expanded:string
+            unlimited: string,
+            standard: string,
+            expanded: string
         },
-        ptcgoCode:string,
-        releaseDate:string,
-        updatedAt: string, 
+        ptcgoCode: string,
+        releaseDate: string,
+        updatedAt: string,
         images: {
-            symbol:string,
+            symbol: string,
             logo: string
         }
     }
@@ -38,9 +39,11 @@ const Form = () => {
     const [showPossibleSets, setShowPossibleSets] = useState(false)
     const [pokemonList, setPokemonList] = useState<pok[]>()
     const [setList, setSetList] = useState<set[]>()
+    const [cards, setCards] = useState<any[]>()
+    const navigate = useNavigate();
 
     useEffect(() => {
-        const getNames = async () =>  {
+        const getNames = async () => {
             const res = await PokeService.GetAllPokemonList();
             setPokemonList(res!.results)
             console.log(res!.results)
@@ -53,45 +56,27 @@ const Form = () => {
         getSets()
         getNames()
     }, [])
-    
 
 
-    const { data: cards, isLoading, isError } = useQuery(["cards", searchPk], () => {
-        let cardUrl = `https://api.pokemontcg.io/v2/cards?q=name:${searchPk ? searchPk : 'bulbasaur'}`
-        
-        return axios.get(cardUrl)
-    })
+
 
 
     const pokemon = useRef<HTMLInputElement>(null)
     const setName = useRef<HTMLInputElement>(null)
 
 
-    if (isLoading) {
-        return <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <CircularProgress />
-        </div>
-    }
-
-    if (isError) {
-        return (
-            <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <Alert severity="error" style={{ width: '800px' }}>
-                    <AlertTitle>Error</AlertTitle>
-                    This Pokemon does not exist
-                </Alert>
-            </div>)
-    }
 
 
-
-    const submissionHandler = (event: FormEvent) => {
+    const submissionHandler = async (event: FormEvent) => {
         event.preventDefault()
+        const res = await PokeService.GetAllPokemonCards(pokemon.current!.value)
+        setCards(res.data)
         setSearchPokemon(pokemon.current!.value)
         setHideForm(true)
     }
 
     const onChangePokemon = () => {
+
         setShowPossiblePokemons(true)
         setPossiblePokemon(pokemon.current!.value)
         if (pokemon.current!.value === '') {
@@ -112,11 +97,11 @@ const Form = () => {
         pokemon.current!.value = selected
     }
 
-    
+   
 
     //  var pokemonNames = data!.data.results;
-    console.log(cards!.data)
-    
+    // console.log(cards)
+
     return (
         <div>
             <div style={{ position: 'relative', display: 'flex', justifyContent: 'center' }}>
@@ -131,29 +116,28 @@ const Form = () => {
 
                                     {pokemonList?.filter((j: any) => (j.name).startsWith(possiblePokemon)).map((i: any) =>
 
-                                        <motion.button whileHover = {{scale:1.25}} onMouseDown={() => getPokemon(i.name)}
-                                            style={{ display: 'flex', textAlign:'center', justifyContent:'center',  backgroundColor:'grey', width:'250px', fontSize:'20px' }}>
+                                        <motion.button whileHover={{ scale: 1.25 }} onMouseDown={() => getPokemon(i.name)}
+                                            style={{ display: 'flex', textAlign: 'center', justifyContent: 'center', backgroundColor: 'grey', width: '250px', fontSize: '20px' }}>
 
                                             {i.name}
-                                            </motion.button>
-                                               
+                                        </motion.button>
+
                                     )}
 
                                 </>
                                 : <></>}
                             <label className="form-label mt-4">Set Name</label>
-                            <input className="form-control" placeholder="Enter Set Name" ref={setName} onChange = {onChangeSet}/>
+                            <input className="form-control" placeholder="Enter Set Name" ref={setName} onChange={onChangeSet} />
                             {showPossibleSets ?
                                 <>
 
                                     {setList?.filter((j: any) => (j.name).startsWith(possibleSet)).map((i: any) =>
-
-                                        <motion.button whileHover = {{scale:1.25}} onMouseDown={() => getPokemon(i.name)}
-                                            style={{ display: 'flex', textAlign:'center', justifyContent:'center',  backgroundColor:'grey', width:'250px', fontSize:'20px' }}>
+                                        <motion.button whileHover={{ scale: 1.25 }} onMouseDown={() => getPokemon(i.name)}
+                                            style={{ display: 'flex', textAlign: 'center', justifyContent: 'center', backgroundColor: 'grey', width: '250px', fontSize: '20px' }}>
 
                                             {i.name}
-                                            </motion.button>
-                                               
+                                        </motion.button>
+
                                     )}
 
                                 </>
@@ -169,11 +153,11 @@ const Form = () => {
 
             {hideForm ?
                 <div>
-                   
-                    
+
+
                     <Grid container spacing={3} sx={{ backgroundColor: 'transparent', justifyContent: 'center', paddingTop: '9em' }}>
 
-                        {cards!.data!.data.map((j: any) =>
+                        {cards!.map((j: any) =>
                             <Grid item xs={12} md={4}>
                                 <Card image={j.images?.small}
                                     avgSellPrice={j.cardmarket?.prices?.averageSellPrice}
@@ -188,21 +172,21 @@ const Form = () => {
 
 
             <div>
-                <Grid container rowSpacing = {3} columnSpacing = {{xs:1, sm:2, md:3}} >
-                    {setList?.map((j:any) => 
-                    
-                        <Grid  item xs = {12} md={4} >
-                            <div style = {{border:'solid'}}>
+                <Grid container rowSpacing={3} columnSpacing={{ xs: 1, sm: 2, md: 3 }} >
+                    {setList?.map((j: any) =>
 
-                            <h3 style={{textAlign:'center'}}>{j.name}</h3>
-                            <div style = {{textAlign:'center'}}>
+                        <Grid item xs={12} md={4} >
+                            <Link to ={"/PokeAPI/set/" + j.id} style = {{textDecoration:'none', color:'white'}} >
+                                <motion.div  whileHover={{ scale: 1.025 }} whileTap={{ scale: 1 }} style={{ border: 'solid', borderRadius: '1em' }}>
 
-                            <img src ={j.images.logo} width = "180px" height = "80px" alt = "setLogo"/>
-                            </div>
-                            </div>
+                                    <h3 style={{ textAlign: 'center' }}>{j.name}</h3>
+                                    <div style={{ textAlign: 'center' }}>
+                                        <img src={j.images.logo} width="180px" height="80px" alt="setLogo" />
+                                    </div>
+                                </motion.div>
+                            </Link>
                         </Grid>
-                    
-                    
+
                     )}
                 </Grid>
             </div>

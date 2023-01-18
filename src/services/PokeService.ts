@@ -21,8 +21,16 @@ export const PokeService = {
         return res.data
     },
     
-    // GetAllPokemonCards: async(pokemon:string): Promise<any> => {
-    //     let url = `https://api.pokemontcg.io/v2/cards?q=name:${pokemon ? pokemon : 'bulbasaur'}`
-    // }
+    GetAllPokemonCards: async(pokemon?:string): Promise<any> => {
+        let url = ''
+        if(pokemon?.trim().length ===0){
+            url = 'https://api.pokemontcg.io/v2/cards'
+        }
+        else {
+            url = `https://api.pokemontcg.io/v2/cards?q=name:${pokemon}`
+        }
+        const res = await axios.get(url)
+        return res.data
+    }
     
 };

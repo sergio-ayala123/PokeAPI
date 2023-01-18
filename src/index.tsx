@@ -5,6 +5,10 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import "bootswatch/dist/darkly/bootstrap.min.css";
 import { QueryClientProvider, QueryClient } from 'react-query';
+import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
+import CardSetPage from './pages/CardSetPage';
+import Paths from './components/Paths';
+import NavBar from './components/NavBar';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -12,10 +16,13 @@ const root = ReactDOM.createRoot(
 const queryClient = new QueryClient();
 root.render(
   <React.StrictMode>
+    <BrowserRouter>
     <QueryClientProvider client={queryClient}>
+    <NavBar/>
 
-    <App />
+    <Paths/>
     </QueryClientProvider>
+    </BrowserRouter>
   </React.StrictMode>
 );
 
